@@ -1,7 +1,15 @@
 <?php 
 class ControllerCliente {
-    public function addCliente($data){
-        
+
+
+
+/*
+    function __construct() {
+        $this->conexionBd = Conexion::getConexionBd();
+    }*/
+
+    public static function addCliente($data){
+
 
         try{
             //DECLARACION DE OBJETO ANONIMO
@@ -27,7 +35,7 @@ class ControllerCliente {
             $conexion = new Conexion();
             $db = $conexion->getConexion();
 
-            $db->beginTransaction();
+            //$db->beginTransaction();
 
             $query = "INSERT INTO cliente VALUES (null , :nombre,:correo,:telefono ,:direccion ,:ciudad ,:estado ,:codigo_postal ,:nota ,:primera_visita ,:ultima_visita,:visitas ,:gasto_total ,:estatus)";
             
@@ -50,7 +58,7 @@ class ControllerCliente {
 
             $statement->execute();
 
-            $db->commit();
+            //$db->commit();
 
             $options = array("0"=>true);
 
@@ -63,8 +71,41 @@ class ControllerCliente {
 
             //LOGICA PARA RESTARLE UNO AL VALOR
             //DE AUTOINCREMENTO
-            $db->rollBack();//SE ENCARGA DE ANULAR LA ULTIMA TRANSACCION
+            //$db->rollBack();//SE ENCARGA DE ANULAR LA ULTIMA TRANSACCION
             return $e->errorInfo;
+        }
+    }
+
+
+    public static function getClientes(){
+        try{
+            $list = array();
+            $db = Conexion::getConexionBd();
+            $query = "SELECT * FROM cliente";
+            //$statement = $this->conexionBd->prepare($query);
+            $statement = $db->prepare($query);
+            $statement->execute();
+            while($row = $statement->fetch()) {
+               $list[] = array(
+                     "id" => $row['id'],
+                     "nombre" => $row['nombre'],
+                     "correo" => $row['correo'],
+                     "telefono" => $row['telefono'],
+                     "direccion" => $row['direccion'],
+                     "ciudad" => $row['ciudad'] ,
+                    
+                     "estado" => $row['estado'],
+                     "codigo_postal" => $row['codigo_postal'],
+                     "nota" => $row['nota'],
+                     "primera_visita" => $row['primera_visita'],
+                     "ultima_visita" => $row['ultima_visita'],
+                     "visitas" => $row['visitas'],
+                     "gasto_total" => $row['gasto_total'],);
+            }//fin del ciclo while 
+    
+            return $list;
+        }catch(PDOException $e){
+            $e->errorInfo;
         }
     }
 
