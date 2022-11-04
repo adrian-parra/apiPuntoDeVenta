@@ -24,6 +24,8 @@ class ControllerCliente {
             $cliente->nota = $data['nota'];
             $cliente->estatus = $data['estatus'];
 
+            $cliente->idEmpresa = $data['id_empresa'];
+
             $cliente->primeraVisita = null;
             $cliente->ultimaVisita = null;
             $cliente->visitas = 0;
@@ -37,9 +39,10 @@ class ControllerCliente {
 
             //$db->beginTransaction();
 
-            $query = "INSERT INTO cliente VALUES (null , :nombre,:correo,:telefono ,:direccion ,:ciudad ,:estado ,:codigo_postal ,:nota ,:primera_visita ,:ultima_visita,:visitas ,:gasto_total ,:estatus)";
+            $query = "INSERT INTO cliente VALUES (null ,:id_empresa , :nombre,:correo,:telefono ,:direccion ,:ciudad ,:estado ,:codigo_postal ,:nota ,:primera_visita ,:ultima_visita,:visitas ,:gasto_total ,:estatus)";
             
             $statement = $db->prepare($query);
+            $statement->bindParam(":id_empresa",$cliente->idEmpresa);
             $statement->bindParam(":nombre",$cliente->nombre);
             $statement->bindParam(":correo", $cliente->correo);
             $statement->bindParam(":telefono",$cliente->telefono);
