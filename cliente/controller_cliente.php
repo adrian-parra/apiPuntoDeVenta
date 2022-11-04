@@ -22,7 +22,7 @@ class ControllerCliente {
             $cliente->estado = $data['estado'];
             $cliente->codigoPostal = $data['codigo_postal'];
             $cliente->nota = $data['nota'];
-            $cliente->estatus = $data['estatus'];
+            $cliente->estatus = "a";
 
             $cliente->idEmpresa = $data['id_empresa'];
 
