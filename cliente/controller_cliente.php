@@ -87,7 +87,7 @@ class ControllerCliente {
         $list = array();
         $conexion = new Conexion();
         $db = $conexion->getConexion();
-        $query = "SELECT * from clinte where id=:id";
+        $query = "SELECT * from cliente where id=:id";
         $statement = $db->prepare($query);
         $statement->bindParam(':id', $id); 
         $statement->execute();
