@@ -18,6 +18,14 @@ switch ($methodHTTP) {
            exit();//FINALIZAMOS LA EJECUCION DE LA API
   
       }
+      if(isset($_GET["actualizar"])){
+        $data = json_decode(file_get_contents('php://input'), true); 
+
+        $result = ControllerCliente::updateCliente($data);
+        echo json_encode($result);
+        exit(); 
+
+      }
         break;
     case 'GET':
       if(empty($_GET)){

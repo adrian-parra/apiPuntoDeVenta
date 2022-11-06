@@ -8,6 +8,48 @@ class ControllerCliente {
         $this->conexionBd = Conexion::getConexionBd();
     }*/
 
+    public static function updateCliente($data){
+        try {
+            $id = $data['id'];
+            $nombre = $data['nombre'];
+            $telefono = $data['telefono'];
+            $correo = $data['correo'];
+
+            $direccion = $data['direccion'];
+            $ciudad = $data['ciudad'];
+            $estado = $data['estado'];
+            $codigo_postal = $data['codigo_postal'];
+            $nota = $data['nota'];
+
+            $conexion = new Conexion();
+
+            $db = $conexion->getConexion();
+            $query = "update cliente set nombre=:nombre, correo=:correo,telefono=:telefono,direccion=:direccion,ciudad=:ciudad,estado=:estado,codigo_postal=:codigo_postal,nota=:nota where id=:id";
+            
+            $statement= $db->prepare($query);
+            $statement->bindParam(":id", $id);
+            $statement->bindParam(":nombre", $nombre);
+            $statement->bindParam(":telefono", $telefono);
+            $statement->bindParam(":correo", $correo); 
+            $statement->bindParam(":direccion", $direccion); 
+
+            $statement->bindParam(":ciudad", $ciudad); 
+            $statement->bindParam(":estado", $estado); 
+            $statement->bindParam(":codigo_postal", $codigo_postal); 
+            $statement->bindParam(":nota", $nota); 
+
+
+            $statement->execute();
+
+            $options = array("0"=>true);
+
+            return $options;
+        }catch(PDOException $e){
+            return $e->errorInfo;
+        }
+
+    }
+
     public static function addCliente($data){
 
 
