@@ -25,7 +25,10 @@ switch ($methodHTTP) {
         echo json_encode($clientes);
         exit();
       }else {
-       
+        $data = $_GET;
+        $cliente = ControllerCliente::getCliente($data);
+        echo json_encode($cliente);
+        exit();
       }
       break;
   }

@@ -80,6 +80,39 @@ class ControllerCliente {
     }
 
 
+    public static function getCliente($data){
+        $id = $data['id'];
+
+        $id = $data['id'];
+        $list = array();
+        $conexion = new Conexion();
+        $db = $conexion->getConexion();
+        $query = "SELECT * from clinte where id=:id";
+        $statement = $db->prepare($query);
+        $statement->bindParam(':id', $id); 
+        $statement->execute();
+        while($row = $statement->fetch()) {
+              $list[] = array(
+                "id" => $row['id'],
+                "nombre" => $row['nombre'],
+                "correo" => $row['correo'],
+                "telefono" => $row['telefono'],
+                "direccion" => $row['direccion'],
+                "ciudad" => $row['ciudad'] ,
+               
+                "estado" => $row['estado'],
+                "codigo_postal" => $row['codigo_postal'],
+                "nota" => $row['nota'],
+                "primera_visita" => $row['primera_visita'],
+                "ultima_visita" => $row['ultima_visita'],
+                "visitas" => $row['visitas'],
+                "gasto_total" => $row['gasto_total'],);
+              }//fin del ciclo while 
+    
+        return $list[0];
+    
+    }
+
     public static function getClientes(){
         try{
             $list = array();
