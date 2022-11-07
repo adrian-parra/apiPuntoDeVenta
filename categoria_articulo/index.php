@@ -9,7 +9,7 @@ $methodHTTP = $_SERVER['REQUEST_METHOD'];
 
 switch ($methodHTTP) {
 
-  case 'GET':
+  case 'POST':
       if(isset($_GET["insertar"])){
         $data = json_decode(file_get_contents('php://input'), true);  
 
@@ -20,6 +20,19 @@ switch ($methodHTTP) {
 
     }
       break;
+  case 'GET':
+    if(empty($_GET)){
+      $categorias = ControllerCategoria::getCategorias();
+      echo json_encode($categorias);
+      exit();
+    }else {
+      $data = $_GET;
+      $cliente = ControllerCliente::getCliente($data);
+      echo json_encode($cliente);
+      exit();
+    }
+    break;
+
 }      
 
 ?>

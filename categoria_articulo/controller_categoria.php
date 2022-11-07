@@ -10,6 +10,28 @@ class ControllerCategoria
       
     }
 
+    public static function getCategorias(){
+        try{
+
+            $db = Conexion::getConexionBd();
+
+            $query = "select * from categoria_articulo";
+
+            $statement = $db->prepare($query);
+            $statement->execute();
+            while($row = $statement->fetch()) {
+               $list[] = array(
+                     "id" => $row['id'],
+                     "nombre" => $row['nombre']);
+            }//fin del ciclo while 
+    
+            return $list;
+
+        }catch(PDOException $e){
+            return $e->errorInfo;
+        }
+    }
+
 
     public static function deleteCategoria($id){
         try{
