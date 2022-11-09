@@ -56,7 +56,7 @@ class ControllerCategoria
 
            // $db->beginTransaction();
 
-            $query = "INSERT INTO categoria VALUES (null , :nombre)";
+            $query = "INSERT INTO categoria_articulo VALUES (null , :nombre)";
 
             $statement = $db->prepare($query);
             $statement->bindParam(":nombre", $this->nombre);
