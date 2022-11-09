@@ -27,8 +27,8 @@ switch ($methodHTTP) {
       exit();
     }else {
       $data = $_GET;
-      $cliente = ControllerCliente::getCliente($data);
-      echo json_encode($cliente);
+      $categoria = ControllerCategoria::getCategoria($data);
+      echo json_encode($categoria);
       exit();
     }
     break;

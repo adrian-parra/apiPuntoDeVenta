@@ -10,6 +10,29 @@ class ControllerCategoria
       
     }
 
+    public static function getCategoria($data){
+        try{
+
+            $id = $data['id'];
+            $db = Conexion::getConexionBd();
+
+            $query = "select * from categoria_articulo where id=:id";
+
+            $statement = $db->prepare($query);
+            $statement->bindParam(":id", $id);
+            $statement->execute();
+            while($row = $statement->fetch()) {
+               $list[] = array(
+                     "id" => $row['id'],
+                     "nombre" => $row['nombre']);
+            }//fin del ciclo while 
+    
+            return $list;
+        }catch(PDOException $e){
+            return $e->errorInfo;
+        }
+    }
+
     public static function getCategorias(){
         try{
 
