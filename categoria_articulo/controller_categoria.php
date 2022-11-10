@@ -27,7 +27,7 @@ class ControllerCategoria
                      "nombre" => $row['nombre']);
             }//fin del ciclo while 
     
-            return $list;
+            return $list[0];
         }catch(PDOException $e){
             return $e->errorInfo;
         }
