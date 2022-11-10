@@ -10,6 +10,27 @@ class ControllerCategoria
       
     }
 
+    public static function updateCategoria($data){
+        try{
+            $id = $data['id'];
+            $nombre = $data['nombre'];
+
+            $db = Conexion::getConexionBd();
+
+            $query = "update categoria_articulo set nombre=:nombre where id=:id";
+            $statement = $db->prepare($query);
+            $statement->bindParam(":id", $id);
+            $statement->bindParam(":nombre", $nombre);
+            $statement->execute();
+
+            $options = array("0"=>true);
+
+            return $options;
+        }catch(PDOException $e){
+            return $e->errorInfo;
+        }
+    }
+
     public static function getCategoria($data){
         try{
 
