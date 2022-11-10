@@ -59,7 +59,7 @@ class ControllerCategoria
 
             $db = Conexion::getConexionBd();
 
-            $query = "select * from categoria_articulo";
+            $query = "select * from categoria_articulo where id != 1";
 
             $statement = $db->prepare($query);
             $statement->execute();
