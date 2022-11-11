@@ -8,7 +8,7 @@ require_once('controller_articulo.php');
 $methodHTTP = $_SERVER['REQUEST_METHOD'];
 switch ($methodHTTP) {
 
-    case 'GET':
+    case 'POST':
         if(isset($_GET["insertar"])){
           $data = json_decode(file_get_contents('php://input'), true);  
   
@@ -21,6 +21,19 @@ switch ($methodHTTP) {
   
       }
         break;
+    case 'GET':
+      if(empty($_GET)){
+        $articulos = ControllerArticulo::getArticulos();
+        echo json_encode($articulos);
+        exit();
+      }else {
+        $data = $_GET;
+        $categoria = ControllerCategoria::getCategoria($data);
+        echo json_encode($categoria);
+        exit();
+      }
+
+      break;
   }
   
 ?>

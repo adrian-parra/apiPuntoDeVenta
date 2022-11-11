@@ -1,5 +1,27 @@
 <?php 
 class ControllerArticulo {
+
+    public static function getArticulos(){
+        try{
+            $db = Conexion::getConexionBd();
+
+            $query = "SELECT articulo.id, articulo.nombre,articulo.precio ,articulo.coste, categoria_articulo.nombre as nombre_categoria ,inventario.stock from articulo ,categoria_articulo ,inventario where articulo.id = inventario.id_articulo";
+            $statement = $db->prepare($query);
+            $statement->execute();
+            while($row = $statement->fetch()) {
+               $list[] = array(
+                     "id" => $row['id'],
+                     "precio" => $row['precio'],
+                     "coste" => $row['coste'],
+                     "nombre_categoria" => $row['nombre_categoria'],
+                     "nombre" => $row['nombre']);
+            }//fin del ciclo while 
+    
+            return $list;
+        }catch(PDOException $e){
+            return $e->errorInfo;
+        }
+    }
     public function addArticulo($data){
         
 
