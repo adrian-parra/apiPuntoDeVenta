@@ -6,14 +6,20 @@ class ControllerArticulo {
         try{
             //DECLARACION DE OBJETO ANONIMO
             $articulo = new stdClass;
+            $articulo->idEmpresa = $data['id_empresa'];
+            $articulo->idImpuesto = $data['id_impuesto'];
+            $articulo->idColor = $data['id_color'];
+            $articulo->idVendidoPor = $data['id_vendido_por'];
+            $articulo->disponible = $data['disponible'];
+
             $articulo->nombre = $data['nombre'];
             $articulo->idCategoria = $data['id_categoria'];
             $articulo->descripcion = $data['descripcion'];
             $articulo->precio = $data['precio'];
             $articulo->coste = $data['coste'];
-            $articulo->referencia = $data['referencia'];
+            $articulo->referencia = $data['ref'];
             $articulo->codigoBarras = $data['codigo_barras'];
-            $articulo->imagen = $data['imagen'];
+            $articulo->imagen = $data['ruta_imagen'];
             $articulo->estatus = $data['estatus'];
         
             $conexion = new Conexion();
@@ -21,9 +27,15 @@ class ControllerArticulo {
 
             //$db->beginTransaction();
 
-            $query = "INSERT INTO articulo VALUES (null , :nombre,:id_categoria,:descripcion ,:precio ,:coste ,:referencia ,:codigo_barras ,:imagen ,:estatus)";
+            $query = "INSERT INTO articulo VALUES (null , :id_categoria ,:id_empresa ,:id_impuesto ,:id_color ,:id_vendido_por ,:nombre,:descripcion ,:disponible ,:precio ,:coste ,:referencia ,:codigo_barras ,:imagen ,:estatus)";
             
             $statement = $db->prepare($query);
+            $statement->bindParam(":id_empresa",$articulo->idEmpresa);
+            $statement->bindParam(":id_impuesto",$articulo->idImpuesto);
+            $statement->bindParam(":id_color",$articulo->idColor);
+            $statement->bindParam(":id_vendido_por",$articulo->idVendidoPor);
+            $statement->bindParam(":disponible",$articulo->disponible);
+
             $statement->bindParam(":nombre",$articulo->nombre);
             $statement->bindParam(":id_categoria", $articulo->idCategoria);
             $statement->bindParam(":descripcion",$articulo->descripcion);
