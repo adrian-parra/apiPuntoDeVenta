@@ -13,6 +13,7 @@ class ControllerArticulo {
                      "id" => $row['id'],
                      "precio" => $row['precio'],
                      "coste" => $row['coste'],
+                     "stock" => $row['stock'],
                      "nombre_categoria" => $row['nombre_categoria'],
                      "nombre" => $row['nombre']);
             }//fin del ciclo while 
