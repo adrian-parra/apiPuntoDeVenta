@@ -5,7 +5,7 @@ class ControllerArticulo {
         try{
             $db = Conexion::getConexionBd();
 
-            $query = "SELECT articulo.id, articulo.nombre,articulo.precio ,articulo.coste, categoria_articulo.nombre as nombre_categoria ,inventario.stock from articulo ,categoria_articulo ,inventario where articulo.id = inventario.id_articulo";
+            $query = "SELECT articulo.id, articulo.nombre,articulo.precio ,articulo.coste, categoria_articulo.nombre as nombre_categoria ,inventario.stock ,inventario.stock_bajo ,inventario.stock_optimo from articulo ,categoria_articulo ,inventario where articulo.id = inventario.id_articulo";
             $statement = $db->prepare($query);
             $statement->execute();
             while($row = $statement->fetch()) {
@@ -14,6 +14,8 @@ class ControllerArticulo {
                      "precio" => $row['precio'],
                      "coste" => $row['coste'],
                      "stock" => $row['stock'],
+                     "stock_bajo" => $row['stock_bajo'],
+                     "stock_optimo" => $row['stock_optimo'],
                      "nombre_categoria" => $row['nombre_categoria'],
                      "nombre" => $row['nombre']);
             }//fin del ciclo while 
