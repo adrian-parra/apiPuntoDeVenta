@@ -3,9 +3,7 @@
 require_once('../conexion.php');
 require_once('../cors.php');
 
-require_once('../inventario/controller_inventario.php');
-
-require_once('controller_articulo.php');
+require_once('controller_inventario.php');
 
 $methodHTTP = $_SERVER['REQUEST_METHOD'];
 switch ($methodHTTP) {
@@ -13,6 +11,9 @@ switch ($methodHTTP) {
     case 'POST':
         if(isset($_GET["insertar"])){
           $data = json_decode(file_get_contents('php://input'), true);  
+  
+          
+  
           $ctl = new ControllerArticulo();
           $result = $ctl->addArticulo($data);
           echo json_encode($result);

@@ -8,6 +8,8 @@ class ControllerArticulo {
             $query = "SELECT articulo.id, articulo.nombre,articulo.precio ,articulo.coste, categoria_articulo.nombre as nombre_categoria ,inventario.stock ,inventario.stock_bajo ,inventario.stock_optimo from articulo ,categoria_articulo ,inventario where articulo.id = inventario.id_articulo";
             $statement = $db->prepare($query);
             $statement->execute();
+
+            $list = array();
             while($row = $statement->fetch()) {
                $list[] = array(
                      "id" => $row['id'],
@@ -73,11 +75,7 @@ class ControllerArticulo {
 
             $statement->execute();
 
-            //$db->commit();
-
-            $options = array("0"=>true);
-
-            return $options;
+            return ControllerInventario::addArticuloInventario($data ,$db->lastInsertId());
 
         }catch(PDOException $e){
                //EL VALOR DE AUTOINCREMENTO DE LA TABLA cliente
