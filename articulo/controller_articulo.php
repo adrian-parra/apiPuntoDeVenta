@@ -5,7 +5,7 @@ class ControllerArticulo {
         try{
             $db = Conexion::getConexionBd();
 
-            $query = "SELECT articulo.id, articulo.nombre,articulo.precio ,articulo.coste, categoria_articulo.nombre as nombre_categoria ,inventario.stock ,inventario.stock_bajo ,inventario.stock_optimo from articulo ,categoria_articulo ,inventario where articulo.id = inventario.id_articulo";
+            $query = "SELECT articulo.id, articulo.nombre,articulo.precio ,articulo.coste, categoria_articulo.nombre as nombre_categoria ,inventario.stock ,inventario.stock_bajo ,inventario.stock_optimo from articulo ,categoria_articulo ,inventario where articulo.id = inventario.id_articulo and articulo.id_categoria = categoria_articulo.id";
             $statement = $db->prepare($query);
             $statement->execute();
 
