@@ -47,14 +47,14 @@ class ControllerArticulo {
             $articulo->referencia = $data['ref'];
             $articulo->codigoBarras = $data['codigo_barras'];
             $articulo->imagen = $data['ruta_imagen'];
-            $articulo->estatus = $data['estatus'];
+       
         
             $conexion = new Conexion();
             $db = $conexion->getConexion();
 
             //$db->beginTransaction();
 
-            $query = "INSERT INTO articulo VALUES (null , :id_categoria ,:id_empresa ,:id_impuesto ,:id_color ,:id_vendido_por ,:nombre,:descripcion ,:disponible ,:precio ,:coste ,:referencia ,:codigo_barras ,:imagen ,:estatus)";
+            $query = "INSERT INTO articulo VALUES (null , :id_categoria ,:id_empresa ,:id_impuesto ,:id_color ,:id_vendido_por ,:nombre,:descripcion ,:disponible ,:precio ,:coste ,:referencia ,:codigo_barras ,:imagen ,'a')";
             
             $statement = $db->prepare($query);
             $statement->bindParam(":id_empresa",$articulo->idEmpresa);
@@ -71,7 +71,7 @@ class ControllerArticulo {
             $statement->bindParam(":referencia",$articulo->referencia);
             $statement->bindParam(":codigo_barras",$articulo->codigoBarras);
             $statement->bindParam(":imagen",$articulo->imagen);
-            $statement->bindParam(":estatus","a");
+         
 
             $statement->execute();
 
