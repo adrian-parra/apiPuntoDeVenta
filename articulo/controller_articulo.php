@@ -71,7 +71,7 @@ class ControllerArticulo {
             $statement->bindParam(":referencia",$articulo->referencia);
             $statement->bindParam(":codigo_barras",$articulo->codigoBarras);
             $statement->bindParam(":imagen",$articulo->imagen);
-            $statement->bindParam(":estatus",$articulo->estatus);
+            $statement->bindParam(":estatus","a");
 
             $statement->execute();
 

@@ -6,7 +6,7 @@ class ControllerInventario {
             $stock = $data['stock'];
             $stockBajo = $data['stock_bajo'];
             $stockOptimo = $data['stock_optimo'];
-            $idProveedor = $data['id_proveedor'];
+            $idProveedor = $data['id_proveedor_principal'];
             $compraDefecto = $data['compra_defecto'];
 
             $db = Conexion::getConexionBd();
