@@ -1,6 +1,30 @@
 <?php 
 class ControllerArticulo {
 
+    public static function getArticulo($data){
+            try{
+                $id = $data['id'];
+
+                $db = Conexion::getConexionBd();
+
+                $query = "SELECT articulo.id, articulo.nombre ,articulo.descripcion ,articulo.disponible , articulo.id_vendido_por as vendido_por ,articulo.ref ,articulo.codigo_barras ,inventario.compra_defecto ,articulo.precio ,articulo.coste, articulo.id_categoria as nombre_categoria ,inventario.stock ,inventario.stock_bajo ,inventario.stock_optimo ,articulo.ruta_imagen from articulo ,categoria_articulo ,inventario where articulo.id = inventario.id_articulo and articulo.id_categoria = categoria_articulo.id and articulo.id = :id";
+                
+                $statement = $db->prepare($query);
+                $statement->bindParam(":id",$id);
+                $statement->execute();
+
+                $list = array();
+                while($row = $statement->fetchObject()) {
+                   $list[0] = $row;
+                }//fin del ciclo while 
+        
+                return $list[0];
+
+            }catch(PDOException $e){
+                return $e->errorInfo;
+            }
+    }
+
     public static function getArticulos(){
         try{
             $db = Conexion::getConexionBd();
