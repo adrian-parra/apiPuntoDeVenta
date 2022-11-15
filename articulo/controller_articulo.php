@@ -1,6 +1,62 @@
 <?php 
 class ControllerArticulo {
 
+
+    public static function updateArticulo($data){
+        try{
+            $id = $data['id'];
+            $nombre = $data['nombre'];
+            $idCategoria = $data['nombre_categoria'];
+            $descripcion = $data['descripcion'];
+            $disponible = $data['disponible'];
+            $vendidoPor = $data['vendido_por'];
+            $ref = $data['ref'];
+            $precio = $data['precio'];
+            $coste = $data['coste'];
+            $codigoBarras = $data['codigo_barras'];
+
+            $stock = $data['stock'];
+            $stockBajo = $data['stock_bajo'];
+            $stockOptimo = $data['stock_optimo'];
+            $proveedorPrincipal = $data['proveedor_principal'];
+            $compraDefecto = $data['compra_defecto'];
+
+            $db = Conexion::getConexionBd();
+            $query = "update articulo ,inventario set articulo.nombre = :nombre ,articulo.id_categoria = :id_categoria ,articulo.descripcion = :descripcion,articulo.disponible = :disponible ,articulo.id_vendido_por = :id_vendido_por,articulo.ref = :ref ,articulo.precio = :precio ,articulo.coste = :coste,articulo.codigo_barras = :codigo_barras,inventario.stock = :stock ,inventario.stock_bajo =:stock_bajo,inventario.stock_optimo = :stock_optimo,inventario.id_proveedor = :id_proveedor,inventario.compra_defecto = :compra_defecto WHERE articulo.id = :id and inventario.id_articulo = articulo.id";
+            
+            $statement = $db->prepare($query);
+            $statement->bindParam(":id", $id);
+            $statement->bindParam(":nombre", $nombre);
+            $statement->bindParam(":id_categoria", $idCategoria);
+
+            $statement->bindParam(":descripcion", $descripcion);
+            $statement->bindParam(":disponible", $disponible);
+            $statement->bindParam(":id_vendido_por", $vendidoPor);
+            $statement->bindParam(":ref", $ref);
+
+            $statement->bindParam(":precio", $precio);
+            $statement->bindParam(":coste", $coste);
+            $statement->bindParam(":codigo_barras", $codigoBarras);
+            $statement->bindParam(":stock", $stock);
+
+            $statement->bindParam(":stock_bajo", $stockBajo);
+            $statement->bindParam(":stock_optimo", $stockOptimo);
+            $statement->bindParam(":id_proveedor", $proveedorPrincipal);
+            $statement->bindParam(":compra_defecto", $compraDefecto);
+
+
+            $statement->execute();
+
+            $options = array("0"=>true);
+
+            return $options;
+
+
+        }catch(PDOException $e){
+            return $e->errorInfo;
+        }
+    }
+
     public static function getArticulo($data){
             try{
                 $id = $data['id'];

@@ -19,6 +19,14 @@ switch ($methodHTTP) {
            exit();//FINALIZAMOS LA EJECUCION DE LA API
   
       }
+
+      if(isset($_GET["actualizar"])){
+        $data = json_decode(file_get_contents('php://input'), true);
+        $ctl = new ControllerArticulo();
+        $result = $ctl->updateArticulo($data);
+        echo json_encode($result);
+        exit();
+      }
         break;
     case 'GET':
       if(empty($_GET)){
