@@ -4,6 +4,7 @@ class ControllerProveedor{
         try{
             //DECLARACION DE OBJETO ANONIMO
             $proveedor = new stdClass;
+            $proveedor->idEmpresa = $data['id_empresa'];
             $proveedor->nombre = $data['nombre'];
             $proveedor->correo = $data['correo'];
             $proveedor->telefono = $data['telefono'];
@@ -19,12 +20,13 @@ class ControllerProveedor{
             $conexion = new Conexion();
             $db = $conexion->getConexion();
 
-            $db->beginTransaction();
+            //$db->beginTransaction();
 
-            $query = "INSERT INTO proveedor VALUES (null , :nombre,:correo,:telefono ,:sitio_web ,:direccion ,:ciudad ,:estado ,:codigo_postal ,:nota ,:estatus)";
+            $query = "INSERT INTO proveedor VALUES (null ,:id_empresa, :nombre ,:correo,:telefono ,:sitio_web ,:direccion ,:ciudad ,:estado ,:codigo_postal ,:nota ,:estatus)";
             
             $statement = $db->prepare($query);
             $statement->bindParam(":nombre",$proveedor->nombre);
+            $statement->bindParam(":id_empresa",$proveedor->idEmpresa);
             $statement->bindParam(":correo", $proveedor->correo);
             $statement->bindParam(":telefono",$proveedor->telefono);
             $statement->bindParam(":sitio_web",$proveedor->sitioWeb);
@@ -48,7 +50,7 @@ class ControllerProveedor{
 
             //LOGICA PARA RESTARLE UNO AL VALOR
             //DE AUTOINCREMENTO
-            $db->rollBack();//SE ENCARGA DE ANULAR LA ULTIMA TRANSACCION
+           // $db->rollBack();//SE ENCARGA DE ANULAR LA ULTIMA TRANSACCION
             return $e->errorInfo;
         }
     }

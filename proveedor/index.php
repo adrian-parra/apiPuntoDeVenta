@@ -8,7 +8,7 @@ $methodHTTP = $_SERVER['REQUEST_METHOD'];
 
 switch ($methodHTTP) {
 
-  case 'GET':
+  case 'POST':
       if(isset($_GET["insertar"])){
         $data = json_decode(file_get_contents('php://input'), true);  
 
