@@ -1,5 +1,27 @@
 <?php 
 class ControllerProveedor{
+
+    public static function getProveedores(){
+        try{
+            $db = Conexion::getConexionBd();
+
+            $query = "select * from proveedor";
+
+            $statement = $db->prepare($query);
+            $statement->execute();
+
+            $list = array();
+            while($row = $statement->fetchObject()) {
+
+                $list[] = $row;
+            }
+
+            return $list;
+        }catch(PDOException $e){
+            return $e->errorInfo;
+        }
+    }
+
     public function addProveedor($data){
         try{
             //DECLARACION DE OBJETO ANONIMO

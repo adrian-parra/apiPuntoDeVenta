@@ -21,5 +21,16 @@ switch ($methodHTTP) {
 
     }
       break;
+  case 'GET':
+    if(empty($_GET)){
+      $proveedores = ControllerProveedor::getProveedores();
+      echo json_encode($proveedores);
+      exit();
+    }else {
+      $data = $_GET;
+     
+      exit();
+    }
+    break;
 }
 ?>
