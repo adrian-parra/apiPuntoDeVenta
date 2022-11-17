@@ -2,6 +2,45 @@
 class ControllerProveedor
 {
 
+    public static function updateProveedor($data){
+        try {
+            $id = $data['id'];
+            $nombre = $data['nombre'];
+            $correo = $data['correo'];
+            $telefono = $data['telefono'];
+            $sitioWeb = $data['sitio_web'];
+            $direccion = $data['direccion'];
+            $ciudad = $data['ciudad'];
+            $estado = $data['estado'];
+            $codigoPostal = $data['codigo_postal'];
+            $nota = $data['nota'];
+
+            $db = Conexion::getConexionBd();
+
+            $query = "update proveedor set nombre=:nombre ,correo= :correo ,telefono = :telefono ,sitio_web=:sitio_web ,direccion = :direccion ,ciudad=:ciudad ,estado=:estado,codigo_postal=:codigo_postal,nota=:nota WHERE id = :id";
+            $statement = $db->prepare($query);
+            $statement->bindParam(":id", $id);
+            $statement->bindParam(":nombre", $nombre);
+            $statement->bindParam(":correo", $correo);
+            $statement->bindParam(":telefono", $telefono);
+            $statement->bindParam(":sitio_web", $sitioWeb);
+            $statement->bindParam(":direccion", $direccion);
+            $statement->bindParam(":ciudad", $ciudad);
+            $statement->bindParam(":estado", $estado);
+            $statement->bindParam(":codigo_postal", $codigoPostal);
+            $statement->bindParam(":nota", $nota);
+
+
+            $statement->execute();
+
+            $options = array("0" => true);
+
+            return $options;
+
+        }catch(PDOException $e){
+            return $e->errorInfo;
+        }
+    }
 
     public static function getProveedor($data)
     {
