@@ -35,7 +35,7 @@ class ControllerProveedor{
             $proveedor->estado = $data['estado'];
             $proveedor->codigoPostal = $data['codigo_postal'];
             $proveedor->nota = $data['nota'];
-            $proveedor->estatus = $data['estatus'];
+            
 
             $proveedor->sitioWeb = $data['sitio_web'];
 
@@ -44,7 +44,7 @@ class ControllerProveedor{
 
             //$db->beginTransaction();
 
-            $query = "INSERT INTO proveedor VALUES (null ,:id_empresa, :nombre ,:correo,:telefono ,:sitio_web ,:direccion ,:ciudad ,:estado ,:codigo_postal ,:nota ,:estatus)";
+            $query = "INSERT INTO proveedor VALUES (null ,:id_empresa, :nombre ,:correo,:telefono ,:sitio_web ,:direccion ,:ciudad ,:estado ,:codigo_postal ,:nota ,'a')";
             
             $statement = $db->prepare($query);
             $statement->bindParam(":nombre",$proveedor->nombre);
@@ -57,7 +57,7 @@ class ControllerProveedor{
             $statement->bindParam(":estado",$proveedor->estado);
             $statement->bindParam(":codigo_postal",$proveedor->codigoPostal);
             $statement->bindParam(":nota",$proveedor->nota);
-            $statement->bindParam(":estatus",$proveedor->estatus);
+           
 
             $statement->execute();
 
