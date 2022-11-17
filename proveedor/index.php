@@ -28,7 +28,8 @@ switch ($methodHTTP) {
       exit();
     }else {
       $data = $_GET;
-     
+      $proveedor = ControllerProveedor::getProveedor($data);
+      echo json_encode($proveedor);
       exit();
     }
     break;
