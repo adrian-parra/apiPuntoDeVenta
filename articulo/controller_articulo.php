@@ -63,7 +63,7 @@ class ControllerArticulo {
 
                 $db = Conexion::getConexionBd();
 
-                $query = "SELECT articulo.id, articulo.nombre ,articulo.descripcion ,articulo.disponible , articulo.id_vendido_por as vendido_por ,articulo.ref ,articulo.codigo_barras ,inventario.compra_defecto ,articulo.precio ,articulo.coste, articulo.id_categoria as nombre_categoria ,inventario.stock ,inventario.stock_bajo ,inventario.stock_optimo ,articulo.ruta_imagen from articulo ,categoria_articulo ,inventario where articulo.id = inventario.id_articulo and articulo.id_categoria = categoria_articulo.id and articulo.id = :id";
+                $query = "SELECT articulo.id, articulo.nombre ,articulo.descripcion ,articulo.disponible , articulo.id_vendido_por as vendido_por ,articulo.ref ,articulo.codigo_barras ,inventario.compra_defecto ,articulo.precio ,articulo.coste, articulo.id_categoria as nombre_categoria ,inventario.stock ,inventario.stock_bajo ,inventario.stock_optimo ,articulo.ruta_imagen ,inventario.id_proveedor as proveedor_principal from articulo ,categoria_articulo ,inventario where articulo.id = inventario.id_articulo and articulo.id_categoria = categoria_articulo.id and articulo.id = :id";
                 
                 $statement = $db->prepare($query);
                 $statement->bindParam(":id",$id);
