@@ -13,7 +13,7 @@ class ControllerUsuario{
             $conexion = new Conexion();
             $db = $conexion->getConexion();
 
-            $query = "SELECT usuario.* ,empresa.nombre as nombre_empresa ,rol.nombre as nombre_rol  FROM usuario ,empresa ,rol WHERE usuario.correo = :correo and usuario.clave = :clave and usuario.id_nombre_empresa = empresa.id and usuario.id_rol = rol.id";
+            $query = "SELECT usuario.* ,empresa.nombre as nombre_empresa ,rol.nombre as nombre_rol ,empleado.nombre ,empleado.id as id_empleado  FROM usuario ,empresa ,rol ,empleado WHERE usuario.correo = :correo and usuario.clave = :clave and usuario.id_nombre_empresa = empresa.id and usuario.id_rol = rol.id and usuario.id = empleado.id_usuario";
             
             $statement = $db->prepare($query);
             $statement->bindParam(":correo",$usuario->correo);
@@ -21,10 +21,10 @@ class ControllerUsuario{
             $statement->execute();
 
             $usuarioEncontrado = false;
-
+            $list[] = array();
             while($row = $statement->fetch()) {
                 $usuarioEncontrado = true;
-                $list[] = array(
+                $list[0] = array(
                       "errors"=>false,
                       "id" => $row['id'],
                       "id_nombre_empresa" => $row['id_nombre_empresa'],
@@ -32,14 +32,16 @@ class ControllerUsuario{
                       "correo" => $row['correo'] ,
                       "nombre_empresa" => $row['nombre_empresa'] ,
                       "nombre_rol" => $row['nombre_rol'] ,
+                      "id_empleado" => $row['id_empleado'],
+                      "nombre" => $row['nombre'],
                      );
              }//fin del ciclo while 
 
              if(!$usuarioEncontrado){
-                $options = array("0"=>array("errors"=>true));
-                return $options;
+                $options[0] = array("errors"=>true);
+                return $options[0];
              }
-             return $list;
+             return $list[0];
                 
                 
              

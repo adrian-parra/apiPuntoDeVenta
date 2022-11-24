@@ -1,5 +1,37 @@
 <?php 
 class ControllerInventario {
+    public static function updateStockInventario($data){
+        try{
+            $idArticulo = $data['id_articulo'];
+            $stock = $data['stock'];
+
+            $db = Conexion::getConexionBd();
+
+            $query = "update inventario set stock = stock + :stock WHERE id_articulo = :id_articulo";
+
+            $statement = $db->prepare($query);
+            $statement->bindParam(":id_articulo",$idArticulo);
+            $statement->bindParam(":stock",$stock);
+
+            $statement->execute();
+
+            $query = "select stock from inventario where id_articulo = :id_articulo";
+            $statement = $db->prepare($query);
+            $statement->bindParam(":id_articulo",$idArticulo);
+            $statement->execute();
+
+            $list = array();
+            while($row = $statement->fetchObject()) {
+               $list[] = $row;
+             }//fin del ciclo while 
+     
+             return $list[0];
+
+        }catch(PDOException $e){
+            return $e->errorInfo;
+        }
+    }
+
     public static function addArticuloInventario($data ,$idarticulo){
         try{
             $idArticulo = $idarticulo;
@@ -22,7 +54,7 @@ class ControllerInventario {
 
             $statement->execute();
 
-            $options = array("0"=>true);
+            $options = array("0"=>true ,"id_articulo"=>$idArticulo);
 
             return $options;
 

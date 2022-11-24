@@ -20,6 +20,15 @@ switch ($methodHTTP) {
            exit();//FINALIZAMOS LA EJECUCION DE LA API
   
       }
+      case 'POST':
+        if(isset($_GET["actualizar"])){
+          $data = json_decode(file_get_contents('php://input'), true);  
+         
+          $result = ControllerInventario::updateStockInventario($data);
+          echo json_encode($result);
+           exit();//FINALIZAMOS LA EJECUCION DE LA API
+  
+      }
         break;
     case 'GET':
       if(empty($_GET)){
